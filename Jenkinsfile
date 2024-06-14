@@ -7,7 +7,6 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                cd /var/jenkins_home/jobs/python-test/workspace
                 docker compose up -d
                 '''
             }
