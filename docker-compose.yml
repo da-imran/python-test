@@ -1,0 +1,22 @@
+# docker-compose.yaml
+name: jenkins-file
+
+services:
+  jenkins:
+    build:
+      context: ./
+    restart: always
+    user: root
+    volumes:
+      - ./volumes:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    networks:
+     - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
+   

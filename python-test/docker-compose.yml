@@ -1,0 +1,44 @@
+name: my_project
+
+services:
+  db:
+    image: mysql:oraclelinux9
+    restart: always
+    environment: 
+      MYSQL_ROOT_PASSWORD: Ehsan123
+      MYSQL_PASSWORD: Ehsan123
+      MYSQL_USER: Ehsan
+      MYSQL_DATABASE: EhsanDB
+    # volumes:
+    #   - D:\DevOps\devops_class\DevopsClass\database:/var/lib/mysql
+    networks:
+      - mynetwork
+  
+  backend:
+    restart: always
+    build:
+      context: ./DevopsClass
+    environment: 
+      MYSQL_HOST: db
+      MYSQL_PASSWORD: Ehsan123
+      MYSQL_USER: Ehsan
+      MYSQL_DATABASE: EhsanDB
+    ports:
+      - "8000:8000"
+    networks:
+      - mynetwork
+    depends_on:
+      - db
+  
+  frontend:
+    restart: always
+    build:
+      context: ./DevopsClassFront
+    # volumes:
+    #   - D:\DevOps\devops_class\DevopsClassFront\dist:/usr/share/nginx/html
+    ports:
+      - "80:80"
+  
+networks:
+  mynetwork:
+    driver: bridge
